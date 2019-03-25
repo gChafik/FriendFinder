@@ -185,7 +185,7 @@
     </footer>
   
   <!-- Modal -->
-  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -236,12 +236,6 @@
         scores: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
   }
   let userScore = newFriend.scores;
-  console.log("New Friend Score: " , userScore);
-
-    // This line is the magic. It"s very similar to the standard ajax function we used.
-    // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-    // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-    // depending on if a tables is available or not.
 
     $.post("/api/friends", newFriend,
       function(data) {
@@ -257,14 +251,8 @@
         newFriend_q_arr.push(newFriend.scores[index]);
     
     }
-    console.log("newFriend questions data: ", newFriend);
-    console.log("New Friend QuestionsArray: ", newFriend_q_arr);
-    console.log("NewFriend Score: ", newFriend.scores[2]);
     score(newFriend);
 
-        $('.submit').on('shown.bs.modal', function() {
-    $('.submit').trigger('focus')
-});
   });
 
   function score(newFriend) {
@@ -272,26 +260,41 @@
     $.ajax({ url: "/api/friends", method: "GET" })
       .then(function(friendsData) {
 
-        // Here we then log the tableData to console, where it will show up as an object.
-        console.log("friendsData" , friendsData);
-        console.log("New Friend" , newFriend);
-        console.log("------------------------------------");
         let totalDifference = 0;
         let totalDifferenceArray = [];
-        let obj = {};
-        let name = '';
-        // Loop through and display each of the customers
+        let ob = {};
+        let lowestScore = 100;
+      
         for (var i = 0; i < friendsData.length; i++) {
-          console.log(friendsData[i].name, ": ", friendsData[i].scores)
-          name = friendsData[i].name;
           for (let j = 0; j < 10; j++){   
-            //console.log(newFriend.scores[j], friendsData.scores[j]);        
+     
             totalDifference += Math.abs(newFriend.scores[j] - friendsData[i].scores[j]);
           }
-          totalDifferenceArray.push(name = totalDifference);
-          
+          totalDifferenceArray.push(ob.name = totalDifference);
+          ob[friendsData[i].name] = totalDifference;
         }
-        console.log("totalDifferenceArray: ", totalDifferenceArray)
+        delete(ob.name);
+
+        for(const i in ob) {
+          if(lowestScore > ob[i]){
+            lowestScore = ob[i];
+            matchName = i;
+          }
+        }
+
+        for(const k in friendsData){
+          if(friendsData[name]=== matchName){
+            console.log(friendsData[name]);
+            console.log('chafik');
+            matchPic = friendsData[j].photo;
+            console.log(matchPic);
+          }
+        }
+
+        //console.log(matchPic);
+        $("#myModal").modal('show');
+        $('.modal-body').append(matchName);
+        //$('.modal-body').append(matchPic);
       });
   }
 
