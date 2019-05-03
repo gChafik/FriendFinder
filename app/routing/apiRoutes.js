@@ -23,7 +23,8 @@ module.exports = function(app) {
   });
 
   app.post("/api/friends", function(req, res) {
-    res.json(friends);
+    friends.push(req.body)
+    res.json(true);
   });
 
   // API POST Requests
