@@ -54,7 +54,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Are you generally an outgoing person?</label>
                 <select class="form-control" id="question-1">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -66,7 +66,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Question #2?</label>
                 <select class="form-control" id="question-2">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -78,7 +78,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-3">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -90,7 +90,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-4">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -102,7 +102,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-5">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -114,7 +114,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-6">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -126,7 +126,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-7">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -138,7 +138,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-8">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -150,7 +150,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-9">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -162,7 +162,7 @@
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Placeholder for next question</label>
                 <select class="form-control" id="question-10">
-                  <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option>
+                  <!-- <option>Select 1 for Strongly Agree, 5 for Strongly Disagree</option> -->
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>
@@ -195,7 +195,8 @@
           </button>
         </div>
         <div class="modal-body match-area">
-          ...
+          <h3 id="friendsName"></h3>
+          <img id=friendsImg src="https://cdn.pixabay.com/photo/2019/04/29/15/43/animal-4166416__480.jpg">
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -205,10 +206,6 @@
   </div>
 
   </div>
-
-</body>
-
-</html>
 
 <script type="text/javascript">
 
@@ -229,65 +226,21 @@
         photo: $("#photo").val().trim(),
         scores: [q1, q2, q3, q4, q5, q6, q7, q8, q9, q10]
   }
-  let userScore = newFriend.scores;
-
+  
     $.post("/api/friends", newFriend,
       function(data) {
         if ($("#person-name").val().trim() == "" || $("#photo").val().trim()== "") {
       alert("All Fields must be filled out correctly")
     } else {
         alert("Survery has been submitted successfully");
+        $("#friendsName").text(data.name);
+        $("#friendsImg").attr("src", data.photo);
+        $("#myModal").modal("toggle");
     }
       
       });
-    let newFriend_q_arr = [];
-    for (let index = 0; index < 10; index++) {
-        newFriend_q_arr.push(newFriend.scores[index]);
-    
-    }
-    score(newFriend);
-
   });
-
-  function score(newFriend) {
-    $.ajax({ url: "/api/friends", method: "GET" })
-      .then(function(friendsData) {
-
-        let totalDifference = 0;
-        let totalDifferenceArray = [];
-        let ob = {};
-        let lowestScore = 100;
-      
-        for (var i = 0; i < friendsData.length; i++) {
-          for (let j = 0; j < 10; j++){   
-     
-            totalDifference += Math.abs(newFriend.scores[j] - friendsData[i].scores[j]);
-          }
-          totalDifferenceArray.push(ob.name = totalDifference);
-          ob[friendsData[i].name] = totalDifference;
-        }
-        delete(ob.name);
-
-        for(const i in ob) {
-          if(lowestScore > ob[i]){
-            lowestScore = ob[i];
-            matchName = i;
-          }
-        }
-
-        for(const k in friendsData){
-          if(friendsData[name]=== matchName){
-            console.log(friendsData[name]);
-            console.log('chafik');
-            matchPic = friendsData[j].photo;
-            console.log(matchPic);
-          }
-        }
-
-        $("#myModal").modal('show');
-        $('.modal-body').append(matchName);
-        //$('.modal-body').append(matchPic);
-      });
-  }
-
 </script>
+</body>
+
+</html>

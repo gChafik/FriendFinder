@@ -1,7 +1,7 @@
 let friends = [
     {
         "name":"Ahmed",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"https://cdn.pixabay.com/photo/2019/04/08/19/02/cosmos-4112660__480.jpg",
         "scores":[
             5,
             1,
@@ -17,7 +17,7 @@ let friends = [
       },{
         
       "name":"Joe",
-        "photo":"https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg",
+        "photo":"https://cdn.pixabay.com/photo/2018/06/09/15/57/aircraft-3464648__480.jpg",
         "scores":[
             2,
             1,

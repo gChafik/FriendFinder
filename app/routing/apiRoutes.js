@@ -23,8 +23,30 @@ module.exports = function(app) {
   });
 
   app.post("/api/friends", function(req, res) {
-    friends.push(req.body)
-    res.json(true);
+          console.log("friends ", friends);
+          let userScores = req.body.scores;
+          console.log(userScores)
+          let totalDifference = 0;
+          let bestFriend = {
+            name: "",
+            photo: "",
+            scoreDiff: 100
+          }
+
+          for (var i = 0; i < friends.length; i++) {
+            totalDifference = 0;
+            for (var j = 0; j < 10; j++){   
+              
+              totalDifference += Math.abs(parseInt(userScores[j]) - parseInt(friends[i].scores[j]));
+              if(totalDifference <= bestFriend.scoreDiff){
+                bestFriend.name = friends[i].name;
+                bestFriend.photo = friends[i].photo;
+                bestFriend.scoreDiff = totalDifference;
+            }
+            }            
+          }
+          friends.push(req.body);
+          res.json(bestFriend);
   });
 
   // API POST Requests
